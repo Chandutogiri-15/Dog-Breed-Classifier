@@ -240,8 +240,8 @@ def predict_gradio(img):
 # 7. GRADIO WEB INTERFACE
 # ========================================
 def launch_web_app():
-    """Launch professional Gradio interface"""
-    with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue")) as demo:
+    """Fixed Gradio 6.0 interface"""
+    with gr.Blocks() as demo:  # REMOVED theme from here
         gr.Markdown("# 🐕 **Dog Breed Classifier**")
         gr.Markdown("Powered by MobileNetV2 • 120 breeds • Instant predictions")
         
@@ -253,17 +253,10 @@ def launch_web_app():
             with gr.Column(scale=1):
                 output = gr.Textbox(label="Prediction", lines=3)
         
-        # Examples (optional - add sample dog images)
-        gr.Examples(
-            examples=[],
-            inputs=img_input,
-            label="Try these examples (add paths to your dog images)"
-        )
-        
         btn.click(predict_gradio, inputs=img_input, outputs=output)
     
     print("\n🌐 LAUNCHING WEB APP...")
-    demo.launch(share=True, show_api=True)
+    demo.launch(share=True)  # REMOVED show_api, theme moved to launch()
 
 # ========================================
 # 8. RUN EVERYTHING!
